@@ -1,3 +1,5 @@
+
+:- consult('utils.pl').
 /**
  * switchColor(?Player1, ?Player2)
 */
@@ -43,3 +45,21 @@ createBoard(N, Board, Acc, Counter, Color) :-
     C1 is Counter - 1,
     switchColor(Color, NextColor),
     createBoard(N, Board, Acc1, C1, NextColor).
+
+placeStone(Board, Player, X, Y, Res) :-
+    inBounds(Board, X, Y),
+    nth0(Y, Board, Line),
+    nth0(X, Line, Cell),
+    first(Cell, b),
+    second(Cell, e),
+    replace(X, Line, b-Player, LRes),
+    replace(Y, Board, LRes, Res).
+
+inBounds(Board, X, Y) :-
+    length(Board, LineNumber),
+    nth0(0, Board, Line),
+    length(Line, ColumnNumber),
+    X >= 0,
+    Y >= 0,
+    X < ColumnNumber,
+    Y < LineNumber.
