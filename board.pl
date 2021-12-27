@@ -1,5 +1,5 @@
-
 :- consult('utils.pl').
+
 /**
  * switchColor(?Player1, ?Player2)
 */
@@ -7,14 +7,14 @@ switchColor(w, b).
 switchColor(b, w).
 
 /**
- * first(+Tuple, -Elem)
+ * color(+Tuple, -Elem)
 */
-first(A-_, A).
+color(A-_, A).
 
 /**
- * second(+Tuple, -Elem) 
+ * state(+Tuple, -Elem) 
 */
-second(_-B, B).
+state(_-B, B).
 
 /**
  * createLine(+N, +Color, -Line)
@@ -32,7 +32,7 @@ createLine(N, Color, Line, Acc) :-
  * createBoard(+N, -Board)
 */
 createBoard(N, Board) :-
-    %N >= 11,
+    N >= 11,
     N =< 19,
     N mod 2 =:= 1, % N must be odd
     createBoard(N, Board, [], N, w).
@@ -46,14 +46,6 @@ createBoard(N, Board, Acc, Counter, Color) :-
     switchColor(Color, NextColor),
     createBoard(N, Board, Acc1, C1, NextColor).
 
-placeStone(Board, Player, X, Y, Res) :-
-    inBounds(Board, X, Y),
-    nth0(Y, Board, Line),
-    nth0(X, Line, Cell),
-    first(Cell, b),
-    second(Cell, e),
-    replace(X, Line, b-Player, LRes),
-    replace(Y, Board, LRes, Res).
 
 inBounds(Board, X, Y) :-
     length(Board, LineNumber),
@@ -63,3 +55,13 @@ inBounds(Board, X, Y) :-
     Y >= 0,
     X < ColumnNumber,
     Y < LineNumber.
+
+getCell(Board, X, Y, Cell) :-
+    inBounds(Board, X, Y),
+    nth0(Y, Board, Line),
+    nth0(X, Line, Cell).
+
+isAdjacentOrthogonally(X1, Y, X2, Y) :- X2 =:= X1 + 1.
+isAdjacentOrthogonally(X1, Y, X2, Y) :- X2 =:= X1 - 1.
+isAdjacentOrthogonally(X, Y1, X, Y2) :- Y2 =:= Y1 + 1.
+isAdjacentOrthogonally(X, Y1, X, Y2) :- Y2 =:= Y1 - 1.
