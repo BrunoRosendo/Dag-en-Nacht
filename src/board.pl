@@ -61,9 +61,6 @@ getCell(Board, X, Y, Cell) :-
     nth0(Y, Board, Line),
     nth0(X, Line, Cell).
 
-    replace(X, Line, b-Player, LRes),
-    replace(Y, Board, LRes, NewBoard),
-
 replaceCell(Board, X, Y, NewCell, NewBoard) :-
     nth0(Y, Board, Line),
     replace(X, Line, NewCell, NewLine),
