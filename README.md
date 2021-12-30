@@ -14,8 +14,8 @@ The players are Black and White, with Black going first. Each has a supply of st
 
 On each turn, a player can take one of the following actions:
 
-- Drop a stone of their color onto a black square - a stone may never be placed in a white square.
-- Shift a stone of their color already on a board, in a black square, to an adjacent white square.
+- Drop a stone of his color onto a black square - a stone may never be placed in a white square.
+- Shift a stone of his color already on the board, in a black square, to an adjacent white square.
 
 The winner is the first player to get five of their stones in a row horizontally or vertically, or four stones in row diagonally on white spaces. Stones on black spaces cannot win with a diagonal line.
 
