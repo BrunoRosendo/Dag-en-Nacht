@@ -61,6 +61,14 @@ getCell(Board, X, Y, Cell) :-
     nth0(Y, Board, Line),
     nth0(X, Line, Cell).
 
+    replace(X, Line, b-Player, LRes),
+    replace(Y, Board, LRes, NewBoard),
+
+replaceCell(Board, X, Y, NewCell, NewBoard) :-
+    nth0(Y, Board, Line),
+    replace(X, Line, NewCell, NewLine),
+    replace(Y, Board, NewLine, NewBoard).
+
 isAdjacentOrthogonally(X1, Y, X2, Y) :- X2 =:= X1 + 1.
 isAdjacentOrthogonally(X1, Y, X2, Y) :- X2 =:= X1 - 1.
 isAdjacentOrthogonally(X, Y1, X, Y2) :- Y2 =:= Y1 + 1.

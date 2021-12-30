@@ -1,20 +1,19 @@
 :- consult('board.pl').
 
+/**
+ * validatePlaceStone(+GameState, +Move)
+ */
 validatePlaceStone((Board, _), (X, Y)) :-
     getCell(Board, X, Y, Cell),
-    color(Cell, b),
-    state(Cell, e).
+    color(Cell, b), % Can only place a stone on black square
+    state(Cell, e). % Can only place a stone on an empty square
 
 /**
  * placeStone(+GameState, +Move, -GameState)
  */
 placeStone((Board, Player), (X, Y), (NewBoard, NextPlayer)) :-
-    nth0(Y, Board, Line),
-    nth0(X, Line, Cell),
-    replace(X, Line, b-Player, LRes),
-    replace(Y, Board, LRes, NewBoard),
+    replaceCell(Board, X, Y, b-Player, NewBoard),
     switchColor(Player, NextPlayer).
-
 
 validateShiftStone((Board, Player), (X, Y), (NewX, NewY)) :-
     getCell(Board, X, Y, Cell),
@@ -31,15 +30,8 @@ validateShiftStone((Board, Player), (X, Y), (NewX, NewY)) :-
  * shiftStone(+GameState, +Move, +Pos, -NewGameState)
  */
 shiftStone((Board, Player), (X, Y), (NewX, NewY), (NewBoard, NextPlayer)) :-
-    nth0(Y, Board, Line),
-
-    replace(X, Line, b-e, Line1),
-    replace(Y, Board, Line1, Board1),
-
-    nth0(NewY, Board1, NewLine),
-
-    replace(NewX, NewLine, w-Player, NewLine1),
-    replace(NewY, Board1, NewLine1, NewBoard),
+    replaceCell(Board, X, Y, b-e, Board1),
+    replaceCell(Board1, NewX, NewY, w-Player, NewBoard),
     switchColor(Player, NextPlayer).
 
 /**
@@ -54,3 +46,5 @@ move(GameState, (X, Y), NewGameState) :-
     validateShiftStone(GameState, (X, Y), (X1, Y)),
     % The position must be given by input. This is just a placeholder
     shiftStone(GameState, (X, Y), (X1, Y), NewGameState).
+
+gameOver(GameState, )
