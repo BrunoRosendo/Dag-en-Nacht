@@ -70,3 +70,37 @@ isAdjacentOrthogonally(X1, Y, X2, Y) :- X2 =:= X1 + 1.
 isAdjacentOrthogonally(X1, Y, X2, Y) :- X2 =:= X1 - 1.
 isAdjacentOrthogonally(X, Y1, X, Y2) :- Y2 =:= Y1 + 1.
 isAdjacentOrthogonally(X, Y1, X, Y2) :- Y2 =:= Y1 - 1.
+
+boardDimensions(Board, LineNumber, ColumnNumber) :-
+    length(Board, LineNumber),
+    nth0(0, Board, Line),
+    length(Line, ColumnNumber).
+
+diagonal(Board, X, Y, XBound, YBound, YStep, Diag) :-
+    diagonal(Board, X, Y, XBound, YBound, YStep, Diag, []).
+
+diagonal(Board, X, Y, XBound, YBound, YStep, Diag, Acc) :-
+    getCell(Board, X, Y, Cell),
+    append(Acc, [Cell], Acc1),
+    NewY is Y+YStep,
+    NewX is X+1,
+    diagonal(Board, NewX, NewY, MaxX, MaxY, YStep, Diag, Acc1).
+
+diagonal(Board, XBound, Y, XBound, _, _, Diag, Acc) :- 
+    getCell(Board, XBound, Y, Cell),
+    append(Acc, [Cell], Diag).
+
+diagonal(Board, X, YBound, _, YBound, _, Diag, Acc) :- 
+    getCell(Board, X, YBound, Cell),
+    append(Acc, [Cell], Diag).
+
+posSlopeDiagonal(Board, X, Y, Diag) :-
+    boardDimensions(Board, _, ColumnNumber),
+    XBound is ColumnNumber - 1,
+    diagonal(Board, X, Y, XBound, 0, -1, Diag).
+
+negSlopeDiagonal(Board, X, Y, Diag) :-
+    boardDimensions(Board, LineNumber, ColumnNumber),
+    XBound is ColumnNumber - 1,
+    YBound is LineNumber - 1, 
+    diagonal(Board, X, Y, XBound, YBound, 1, Diag).
