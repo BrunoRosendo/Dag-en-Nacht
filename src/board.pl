@@ -84,15 +84,15 @@ diagonal(Board, X, Y, XBound, YBound, YStep, Diag, Acc) :-
     append(Acc, [Cell], Acc1),
     NewY is Y+YStep,
     NewX is X+1,
-    diagonal(Board, NewX, NewY, MaxX, MaxY, YStep, Diag, Acc1).
+    diagonal(Board, NewX, NewY, XBound, YBound, YStep, Diag, Acc1).
 
 diagonal(Board, XBound, Y, XBound, _, _, Diag, Acc) :- 
     getCell(Board, XBound, Y, Cell),
-    append(Acc, [Cell], Diag).
+    append(Acc, [Cell], Diag), !.
 
 diagonal(Board, X, YBound, _, YBound, _, Diag, Acc) :- 
     getCell(Board, X, YBound, Cell),
-    append(Acc, [Cell], Diag).
+    append(Acc, [Cell], Diag), !.
 
 posSlopeDiagonal(Board, X, Y, Diag) :-
     boardDimensions(Board, _, ColumnNumber),
