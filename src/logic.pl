@@ -15,6 +15,9 @@ placeStone((Board, Player), (X, Y), (NewBoard, NextPlayer)) :-
     replaceCell(Board, X, Y, b-Player, NewBoard),
     switchColor(Player, NextPlayer).
 
+/**
+ * validateShiftStone(+GameState, +Move)
+ */
 validateShiftStone((Board, Player), (X, Y), (NewX, NewY)) :-
     getCell(Board, X, Y, Cell),
     color(Cell, b), % Can only shift a stone on a black square

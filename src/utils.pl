@@ -1,16 +1,28 @@
 :-use_module(library(lists)).
+:-use_module(library(between)).
 
+/**
+ * replace(+Idx, +L1, +Val, -L2)
+ */
 replace(Idx, L1, Val, L2) :-
-  length(L1, Length),
-  Length > Idx,
-  replace(Idx, L1, Val, L2, []).
+    length(L1, Length),
+    Length > Idx,
+    replace(Idx, L1, Val, L2, []).
 
 replace(0, [_ | T], Val, L2, Acc) :-
-  append(Acc, [Val], Acc1),
-  append(Acc1, T, L2).
+    append(Acc, [Val], Acc1),
+    append(Acc1, T, L2), !.
 
 replace(Idx, [H | T], Val, L2, Acc) :-
-  Idx > 0,
-  append(Acc, [H], Acc1),
-  Idx1 is Idx - 1,
-  replace(Idx1, T, Val, L2, Acc1).
+    Idx > 0,
+    append(Acc, [H], Acc1),
+    Idx1 is Idx - 1,
+    replace(Idx1, T, Val, L2, Acc1).
+
+/**
+ * betweenAndEven(+Lower, +Upper, -X)
+ * Generator of even numbers between lower and upper
+ */
+betweenAndEven(Lower, Upper, X) :-
+    between(Lower, Upper, X),
+    X mod 2 =:= 0.
