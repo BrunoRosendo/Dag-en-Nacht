@@ -78,9 +78,13 @@ getWinCondition(Player, NumPieces, WinCondition, Acc) :-
 /**
  * gameOver(+GameState, -Winner)
  */
-gameOver((Board, Player), Player) :-
+gameOver((Board,Player), Player) :-
     transpose(Board, Cols),
+    checkWin(Cols, Player, 5). % Columns
+
+gameOver((Board,Player), Player) :-
+    checkWin(Board, Player, 5).  % Rows
+
+gameOver((Board,Player), Player) :-
     whiteDiagonals(Board, WhiteDiags),
-    (checkWin(Board, Player, 5); % Rows
-    checkWin(Cols, Player, 5);
-    checkWin(WhiteDiags, Player, 4)).
+    checkWin(whiteDiags, Player, 4). % White Diagonals
