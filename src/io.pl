@@ -40,10 +40,10 @@ readNumber(X, Acc) :-
  * Reads a number from input until the user inserts one between two values
  */
 readUntilBetween(Min, Max, Value) :-
-    format('| Chose an option [~d-~d]: ', [Min, Max]),
+    format('Chose an option [~d-~d]: ', [Min, Max]),
     readNumber(Value),
     between(Min, Max, Value), !.
 
 readUntilBetween(Min, Max, Value) :-
-    format('| Invalid option! Please choose between ~d and ~d~n', [Min, Max]),
+    format('Invalid option! Please choose between ~d and ~d~n', [Min, Max]),
     readUntilBetween(Min, Max, Value).
