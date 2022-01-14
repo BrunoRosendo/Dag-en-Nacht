@@ -121,6 +121,7 @@ difficultyMap(2, h).
  */
 pcGame :-
     chooseDifficulty('Choose the difficulty for your opponent', Choice),
+    % TODO: random to choose black or white (probably on another module)
     startGame(p-Choice).
 
 /**
