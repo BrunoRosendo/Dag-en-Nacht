@@ -26,10 +26,19 @@ replace(Idx, [H | T], Val, L2, Acc) :-
     replace(Idx1, T, Val, L2, Acc1).
 
 /**
- * betweenAndEven(+Lower, +Upper, -X)
+ * betweenAndEven(+Lower, +Upper, ?X)
  *
- * Generator of even numbers between lower and upper
+ * Generator/verifier of even numbers between lower and upper
  */
 betweenAndEven(Lower, Upper, X) :-
     between(Lower, Upper, X),
     X mod 2 =:= 0.
+
+/**
+ * betweenAndOdd(+Lower, +Upper, ?X)
+ *
+ * Generator/verifier of odd numbers between lower and upper
+ */
+betweenAndOdd(Lower, Upper, X) :-
+    between(Lower, Upper, X),
+    X mod 2 =\= 0.

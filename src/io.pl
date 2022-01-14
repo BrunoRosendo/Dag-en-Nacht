@@ -1,4 +1,3 @@
-:-use_module(library(between)).
 :- consult('utils.pl').
 
 % Clears the terminal screen
@@ -40,10 +39,26 @@ readNumber(X, Acc) :-
  * Reads a number from input until the user inserts one between two values
  */
 readUntilBetween(Min, Max, Value) :-
-    format('Chose an option [~d-~d]: ', [Min, Max]),
+    format('Choose an option [~d-~d]: ', [Min, Max]),
     readNumber(Value),
     between(Min, Max, Value), !.
 
 readUntilBetween(Min, Max, Value) :-
     format('Invalid option! Please choose between ~d and ~d~n', [Min, Max]),
     readUntilBetween(Min, Max, Value).
+
+
+/**
+ * readUntilBetweenAndOdd(+Min, +Max, -Value)
+ *
+ * Reads a number from input until the user inserts an odd one between two values
+ */
+readUntilBetweenAndOdd(Min, Max, Value) :-
+    format('Choose an odd number between ~d and ~d: ', [Min, Max]),
+    readNumber(Value),
+    betweenAndOdd(Min, Max, Value), !.
+
+readUntilBetweenAndOdd(Min, Max, Value) :-
+    write('Invalid option! Remember it has to be an odd number'),
+    nl,
+    readUntilBetweenAndOdd(Min, Max, Value).

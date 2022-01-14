@@ -80,8 +80,21 @@ mainMenu :-
  * Processes a choice made on the main menu
  */
 mainMenuChoice(0) :- exitGame.
+mainMenuChoice(1) :- startGame.
 mainMenuChoice(4) :- instructions.
 
+
+startGame :-
+    clear,
+    menuTitle('Board Size'),
+    menuEmptyLine,
+    menuText('Chose a size for the Game Board (NxN)'),
+    menuEmptyLine,
+    menuFill, nl,
+
+    readUntilBetweenAndOdd(11, 19, Num),
+    % TODO: start game loop
+    fail.
 
 exitGame :-
     clear, nl,
