@@ -88,3 +88,10 @@ gameOver((Board,Player), Player) :-
 gameOver((Board,Player), Player) :-
     whiteDiagonals(Board, WhiteDiags),
     checkWin(whiteDiags, Player, 4). % White Diagonals
+
+
+/**
+ * initialState(+Size, -GameState)
+ */
+initialState(Size, (Board, b)) :- % Black always goes first
+    createBoard(Size, Board).
