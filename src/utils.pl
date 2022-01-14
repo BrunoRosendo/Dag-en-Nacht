@@ -21,6 +21,7 @@ replace(Idx, [H | T], Val, L2, Acc) :-
 
 /**
  * betweenAndEven(+Lower, +Upper, -X)
+ *
  * Generator of even numbers between lower and upper
  */
 betweenAndEven(Lower, Upper, X) :-

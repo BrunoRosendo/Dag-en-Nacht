@@ -8,12 +8,14 @@ switchColor(b, w).
 
 /**
  * color(+Cell, -Elem)
+ *
  * Gets the color of the cell
 */
 color(A-_, A).
 
 /**
  * state(+Cell, -Elem) 
+ *
  * Gets the state of the cell (empty or either of the players)
 */
 state(_-B, B).
@@ -92,6 +94,7 @@ boardDimensions(Board, LineNumber, ColumnNumber) :-
 
 /**
  * diagonal(+Board, +X, +Y, +XBound, +YBound, +YStep, -Diag)
+ *
  * Gets a diagonal starting at (X, Y) and ending at XBound or YBound
  * The slope is defined by the YStep
 */
@@ -132,6 +135,7 @@ negSlopeDiagonal(Board, X, Y, Diag) :-
 
 /**
  * whiteDiagonals(+Board, -Diags)
+ *
  * Gets all the board's white diagonals
 */
 whiteDiagonals(Board, Diags) :-
@@ -168,6 +172,7 @@ diagonalsByCoords(Board, [(X, Y) | T], asc, Diags, Acc) :-
 
 /**
  * upperAndLeftCoords(+ColumnNumber, +RowNumber, -Coords)
+ *
  * Gets the coordinates of the upper row and left column cells
 */
 upperAndLeftCoords(ColumnNumber, RowNumber, Coords) :-
@@ -179,6 +184,7 @@ upperAndLeftCoords(ColumnNumber, RowNumber, Coords) :-
 
 /**
  * lowerAndLeftCoords(+ColumnNumber, +RowNumber, -Coords)
+ *
  * Gets the coordinates of the lower row and left column cells
 */
 lowerAndLeftCoords(ColumnNumber, RowNumber, Coords) :-

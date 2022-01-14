@@ -40,18 +40,17 @@ shiftStone((Board, Player), (X, Y), (NewX, NewY), (NewBoard, NextPlayer)) :-
 /**
  * move(+GameState, +Move, -NewGameState)
  */
-move(GameState, place-Pos, NewGameState) :-
+move(GameState, (X, Y), NewGameState) :-
     validatePlaceStone(GameState, Move),
-    placeStone(GameState, Pos, NewGameState).
+    placeStone(GameState, (X, Y), NewGameState).
 
-move(GameState, shift-(X, Y), NewGameState) :-
-    X1 is X - 1,
-    validateShiftStone(GameState, (X, Y), (X1, Y)),
-    % The position must be given by input. This is just a placeholder
-    shiftStone(GameState, (X, Y), (X1, Y), NewGameState).
+move(GameState, (X, Y)-(X1, Y1), NewGameState) :-
+    validateShiftStone(GameState, (X, Y), (X1, Y1)),
+    shiftStone(GameState, (X, Y), (X1, Y1), NewGameState).
 
 /**
  * checkWin(+Vectors, +Player, +NumPieces)
+ *
  * Check if the player won, by analyzing the list of vectors
  * A vector is either a row, line or diagonal
  */
@@ -66,6 +65,7 @@ checkWin([Vector | T], WinCondition) :-
 
 /**
  * getWinCondition(+Player, +NumPieces, -WinCondition)
+ *
  * Generates a win condition (list of player-owned cells) with the given number of pieces
  */
 getWinCondition(Player, NumPieces, WinCondition) :- getWinCondition(Player, NumPieces, WinCondition, []).
