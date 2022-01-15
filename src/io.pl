@@ -12,7 +12,7 @@ invalidDigit(C) :-
     (C < 48 ; C > 57),
     skip_line.
 
-validDigit(C) :- not(invalidDigit(C)), !.
+validDigit(C) :- \+ invalidDigit(C), !.
 
 /**
  * readNumber(-X)

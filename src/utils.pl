@@ -2,12 +2,6 @@
 :-use_module(library(between)).
 
 /**
- * not(+X)
- */
-not(X) :- X, !, fail.
-not(X).
-
-/**
  * replace(+Idx, +L1, +Val, -L2)
  */
 replace(Idx, L1, Val, L2) :-
