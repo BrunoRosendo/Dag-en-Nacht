@@ -36,3 +36,22 @@ betweenAndEven(Lower, Upper, X) :-
 betweenAndOdd(Lower, Upper, X) :-
     between(Lower, Upper, X),
     X mod 2 =\= 0.
+
+
+firstNletters(N, Letters) :-
+    findall(Letter, isLetterAndBounded(Letter, N), Letters).
+
+isLetterAndBounded(Letter, N) :-
+    UpperBound is N+97-1, % code('a') = 97
+    between(97, UpperBound, Code),
+    char_code(Letter, Code).
+
+isValidDirection(t).
+isValidDirection(b).
+isValidDirection(l).
+isValidDirection(r).
+
+directionToOffsets(u, 0, -1).
+directionToOffsets(b, 0, 1).
+directionToOffsets(l, -1, 0).
+directionToOffsets(r, -1, 0).
