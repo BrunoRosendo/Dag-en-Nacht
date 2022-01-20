@@ -40,9 +40,9 @@ shiftStone((Board, Player), (X, Y), (NewX, NewY), (NewBoard, NextPlayer)) :-
 /**
  * move(+GameState, +Move, -NewGameState)
  */
-move(GameState, (X, Y), NewGameState) :-
+move(GameState, Move, NewGameState) :-
     validatePlaceStone(GameState, Move),
-    placeStone(GameState, (X, Y), NewGameState).
+    placeStone(GameState, Move, NewGameState).
 
 move(GameState, (X, Y)-(X1, Y1), NewGameState) :-
     validateShiftStone(GameState, (X, Y), (X1, Y1)),
@@ -87,7 +87,7 @@ gameOver((Board,Player), Player) :-
 
 gameOver((Board,Player), Player) :-
     whiteDiagonals(Board, WhiteDiags),
-    checkWin(whiteDiags, Player, 4). % White Diagonals
+    checkWin(WhiteDiags, Player, 4). % White Diagonals
 
 
 /**
