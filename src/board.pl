@@ -79,10 +79,10 @@ replaceCell(Board, X, Y, NewCell, NewBoard) :-
 /**
  * isAdjacentOrthogonally(+X1, +Y1, +X2, +Y2)
 */
-isAdjacentOrthogonally(X1, Y, X2, Y) :- X2 =:= X1 + 1.
-isAdjacentOrthogonally(X1, Y, X2, Y) :- X2 =:= X1 - 1.
-isAdjacentOrthogonally(X, Y1, X, Y2) :- Y2 =:= Y1 + 1.
-isAdjacentOrthogonally(X, Y1, X, Y2) :- Y2 =:= Y1 - 1.
+isAdjacentOrthogonally(X1, Y, X2, Y) :- X2 is X1 + 1.
+isAdjacentOrthogonally(X1, Y, X2, Y) :- X2 is X1 - 1.
+isAdjacentOrthogonally(X, Y1, X, Y2) :- Y2 is Y1 + 1.
+isAdjacentOrthogonally(X, Y1, X, Y2) :- Y2 is Y1 - 1.
 
 /**
  * boardDimensions(+Board, -LineNumber, -ColumnNumber)

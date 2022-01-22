@@ -53,7 +53,6 @@ startGame(Type) :-
     menuFill, nl,
 
     readUntilBetweenAndOdd(11, 19, BoardSize),
-    % TODO: call initial state and game loop (not in input.pl)
     fail. % Go back to menu
 
 /**
