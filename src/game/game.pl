@@ -11,10 +11,15 @@ gameLoop(GameState, PlayerType, GameType) :-
 
 gameLoop(GameState, PlayerType, GameType) :-
     chooseMove(GameState, PlayerType, Move),
-    move(GameState, Move, NewGameState),
+    move(GameState, Move, NewGameState), !,
     nextPlayer(PlayerType, NewPlayerType, GameType),
-    displayGame(NewGameState),  % player type might not be needed
+    displayGame(NewGameState),
     gameLoop(NewGameState, NewPlayerType, GameType).
+
+gameLoop(GameState, PlayerType, GameType) :-
+    nl, write('Invalid Move! Please try again'),
+    nl, nl,
+    gameLoop(GameState, PlayerType, GameType). % Ask for another move
 
 chooseMove((Board, Player), p, Move) :-
     playerString(Player, PString),
