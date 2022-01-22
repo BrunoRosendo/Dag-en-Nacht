@@ -48,24 +48,10 @@ createBoard(N, Board, Acc, Counter, Color) :-
     switchColor(Color, NextColor),
     createBoard(N, Board, Acc1, C1, NextColor).
 
-
-/**
- * inBounds(+Board, +X, +Y)
-*/
-inBounds(Board, X, Y) :-
-    length(Board, LineNumber),
-    nth0(0, Board, Line),
-    length(Line, ColumnNumber),
-    X >= 0,
-    Y >= 0,
-    X < ColumnNumber,
-    Y < LineNumber.
-
 /**
  * getCell(+Board, +X, +Y, -Cell)
 */
 getCell(Board, X, Y, Cell) :-
-    %inBounds(Board, X, Y),
     nth0(Y, Board, Line),
     nth0(X, Line, Cell).
 

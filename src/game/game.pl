@@ -37,9 +37,11 @@ nextPlayer(Level2, Level1, Level1-Level2).
 chooseTypeOfMove(0, LineNumber, ColumnNumber, Move) :- 
     askForBoardPosition(LineNumber, ColumnNumber, Move).
 
-chooseTypeOfMove(1, LineNumber, ColumnNumber, Pos-Dir) :-
-    askForBoardPosition(LineNumber, ColumnNumber, Pos),
-    askForDirection(Dir).
+chooseTypeOfMove(1, LineNumber, ColumnNumber, (X, Y)-(X1, Y1)) :-
+    askForBoardPosition(LineNumber, ColumnNumber, (X, Y)),
+    askForDirection((XOffset, YOffset)),
+    X1 is X + XOffset,
+    Y1 is Y + YOffset.
 
 chooseMove(e, _GameState, Moves, Move):-
     random_select(Move, Moves, _Rest).
