@@ -58,7 +58,11 @@ askForBoardPosition(LineNumber, ColumnNumber, (X, Y)) :-
     readUntilValidRow(LineNumber, Y).
 
 
-
 askForDirection((DirX, DirY)) :-
     readUntilValidDir(Dir),
     directionToOffsets(Dir, DirX, DirY).
+
+printInvalidMove :-
+    nl, write('Invalid move.'), nl,
+    write('Remember the rules and please try again'), nl, nl.
+
