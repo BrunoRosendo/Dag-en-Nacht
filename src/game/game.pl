@@ -31,8 +31,17 @@ chooseMove(GameState, Level, Move) :-
     validMoves(GameState, Moves),
     chooseMove(Level, GameState, Moves, Move).
 
-nextPlayer(p, p, p-p).
+chooseMove(e, _GameState, Moves, Move) :-
+    random_select(Move, Moves, _Rest).
 
+chooseMove(h, GameState, Moves, Move) :-
+    setof(Value-Mv, NewState^( member(Mv, Moves),
+        move(GameState, Mv, (NewBoard, Opponent)), write('move: '), write(Mv), nl,
+        switchColor(Opponent, Player),
+        evaluateBoard((NewBoard, Player), Value) ), [V-Move|_]),
+    write('chosen: '), write(Move), write(' '), write(V), skip_line.
+
+nextPlayer(p, p, p-p).
 nextPlayer(p, Level, p-Level).
 nextPlayer(Level, p, p-Level).
 
@@ -47,9 +56,6 @@ chooseTypeOfMove(1, LineNumber, ColumnNumber, (X, Y)-(X1, Y1)) :-
     askForDirection((XOffset, YOffset)),
     X1 is X + XOffset,
     Y1 is Y + YOffset.
-
-chooseMove(e, _GameState, Moves, Move):-
-    random_select(Move, Moves, _Rest).
 
 playerString(w, 'White').
 playerString(b, 'Black').
