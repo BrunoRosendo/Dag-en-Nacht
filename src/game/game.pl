@@ -1,4 +1,6 @@
+:-use_module(library(random)).
 :- consult('./game_io.pl').
+:- consult('./display.pl').
 :- consult('../logic.pl').
 
 gameLoop(GameState, PlayerType, GameType) :-
@@ -9,7 +11,7 @@ gameLoop(GameState, PlayerType, GameType) :-
     chooseMove(GameState, PlayerType, Move),
     move(GameState, Move, NewGameState),
     nextPlayer(PlayerType, NewPlayerType, GameType),
-    displayGame(NewGameState, NewPlayerType),  % player type might not be needed
+    displayGame(NewGameState),  % player type might not be needed
     gameLoop(NewGameState, NewPlayerType, GameType).
 
 chooseMove((Board, Player), p, Move) :-
@@ -18,7 +20,7 @@ chooseMove((Board, Player), p, Move) :-
     boardDimensions(Board, LineNumber, ColumnNumber),
     chooseTypeOfMove(Num, LineNumber, ColumnNumber, Move).
 
-chooseMove(GameState, computer-Level, Move) :-
+chooseMove(GameState, Level, Move) :-
     validMoves(GameState, Moves),
     chooseMove(Level, GameState, Moves, Move).
 

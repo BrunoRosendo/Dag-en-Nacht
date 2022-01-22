@@ -42,8 +42,8 @@ firstNletters(N, Letters) :-
     findall(Letter, isLetterAndBounded(Letter, N), Letters).
 
 isLetterAndBounded(Letter, N) :-
-    UpperBound is N+97-1, % code('a') = 97
-    between(97, UpperBound, Code),
+    UpperBound is N+65-1, % code('A') = 65
+    between(65, UpperBound, Code),
     char_code(Letter, Code).
 
 isValidDirection(t).

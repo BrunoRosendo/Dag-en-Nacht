@@ -34,19 +34,19 @@ readUntilValidRow(RowNumber, Row) :-
 
 
 readUntilValidCol(ColumnNumber, Col) :-
-    LastLetterCode is ColumnNumber+97-1,
+    LastLetterCode is ColumnNumber+65-1,
     char_code(LastLetter, LastLetterCode),
-    format('Choose a column [a-~p]: ', [LastLetter]),
+    format('Choose a column [A-~p]: ', [LastLetter]),
     get_char(Char),
     skip_line,
     char_code(Char, CharCode),
-    Col is CharCode-97,
+    Col is CharCode-65,
     isLetterAndBounded(Char, ColumnNumber), !.
 
 readUntilValidCol(ColumnNumber, Col) :-
-    LastLetterCode is ColumnNumber+97-1,
+    LastLetterCode is ColumnNumber+65-1,
     char_code(LastLetter, LastLetterCode),
-    format('Invalid column! Please choose one between a and ~p~n', [LastLetter]),
+    format('Invalid column! Please choose one between A and ~p~n', [LastLetter]),
     readUntilValidCol(ColumnNumber, Col).
 
 
