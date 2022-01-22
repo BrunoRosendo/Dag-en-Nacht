@@ -67,7 +67,7 @@ inBounds(Board, X, Y) :-
  * getCell(+Board, +X, +Y, -Cell)
 */
 getCell(Board, X, Y, Cell) :-
-    inBounds(Board, X, Y),
+    %inBounds(Board, X, Y),
     nth0(Y, Board, Line),
     nth0(X, Line, Cell).
 
