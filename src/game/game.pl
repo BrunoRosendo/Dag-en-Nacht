@@ -37,5 +37,8 @@ chooseTypeOfMove(1, LineNumber, ColumnNumber, Pos-Dir) :-
     askForBoardPosition(LineNumber, ColumnNumber, Pos),
     askForDirection(Dir).
 
+chooseMove(e, _GameState, Moves, Move):-
+    random_select(Move, Moves, _Rest).
+
 playerString(w, 'White').
 playerString(b, 'Black').
