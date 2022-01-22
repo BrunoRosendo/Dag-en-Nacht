@@ -1,5 +1,3 @@
-:- consult('utils.pl').
-
 % Clears the terminal screen
 clear :- write('\e[2J').
 

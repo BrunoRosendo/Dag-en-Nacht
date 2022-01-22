@@ -1,5 +1,3 @@
-:- consult('board.pl').
-
 /**
  * validatePlaceStone(+GameState, +Pos)
  */
@@ -44,7 +42,9 @@ move(GameState, Move, NewGameState) :-
     validatePlaceStone(GameState, Move),
     placeStone(GameState, Move, NewGameState).
 
-move(GameState, (X, Y)-(X1, Y1), NewGameState) :-
+move(GameState, (X, Y)-(XOffset, YOffset), NewGameState) :-
+    X1 is X + XOffset,
+    Y1 is Y + YOffset,
     validateShiftStone(GameState, (X, Y), (X1, Y1)),
     shiftStone(GameState, (X, Y), (X1, Y1), NewGameState).
 

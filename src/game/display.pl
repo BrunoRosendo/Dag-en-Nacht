@@ -1,6 +1,3 @@
-:- consult('../io.pl').
-:- consult('../board.pl').
-
 displayGame((Board, Player)) :-
     boardDimensions(Board, LineNumber, ColumnNumber),
     clear,
@@ -25,7 +22,7 @@ displayColumns(N, Acc) :-
 displayBoard(Board, Lines, Cols) :-
     boardDelimiter(Cols),
     displayLines(Board, Lines, Cols, 1),
-    boardDelimiter(Cols).
+    boardDelimiter(Cols), nl.
 
 
 displayLines(Board, Lines, Cols, Lines) :-

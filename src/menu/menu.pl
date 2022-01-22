@@ -1,6 +1,3 @@
-:- consult('../io.pl').
-:- consult('./menu_io.pl').
-
 /**
  * mainMenu/0
  *
@@ -53,6 +50,7 @@ startGame(Type) :-
     menuFill, nl,
 
     readUntilBetweenAndOdd(11, 19, BoardSize),
+    gameInit(BoardSize, Type),
     fail. % Go back to menu
 
 /**

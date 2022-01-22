@@ -1,7 +1,9 @@
 :-use_module(library(random)).
-:- consult('./game_io.pl').
-:- consult('./display.pl').
-:- consult('../logic.pl').
+
+gameInit(BoardSize, P1-P2) :-
+    initialState(BoardSize, GameState),
+    displayGame(GameState),
+    gameLoop(GameState, P1, P1-P2).
 
 gameLoop(GameState, PlayerType, GameType) :-
     gameOver(GameState, Winner), !,

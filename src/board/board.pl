@@ -1,5 +1,3 @@
-:- consult('utils.pl').
-
 /**
  * switchColor(?Player1, ?Player2)
 */

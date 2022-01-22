@@ -1,7 +1,3 @@
-:- consult('../io.pl').
-:- consult('../utils.pl').
-
-
 moveOption(Option, Caption) :-
     format('   | ~p | ~p ~n', [Option, Caption]).
 
