@@ -95,3 +95,6 @@ gameOver((Board,Player), Player) :-
  */
 initialState(Size, (Board, b)) :- % Black always goes first
     createBoard(Size, Board).
+
+validMoves(GameState, Moves):-
+    findall(Move, move(GameState, Move, NewState), Moves).
