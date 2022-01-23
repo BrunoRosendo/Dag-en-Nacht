@@ -76,14 +76,3 @@ chooseTypeOfMove(1, LineNumber, ColumnNumber, (X, Y)-(X1, Y1)) :-
     askForDirection((XOffset, YOffset)),
     X1 is X + XOffset,
     Y1 is Y + YOffset.
-
-/**
- * congratulateWinner(+Winner)
- *
- * Congratulates the winner
-*/
-congratulateWinner(Winner) :-
-    playerString(Winner, PString),
-    write('Congratulations, '),
-    write(PString),
-    write('! You won the game!'), skip_line.

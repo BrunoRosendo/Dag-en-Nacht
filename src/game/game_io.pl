@@ -107,5 +107,16 @@ printInvalidMove :-
     nl, write('Invalid move.'), nl,
     write('Remember the rules and please try again'), nl, nl.
 
+/**
+ * congratulateWinner(+Winner)
+ *
+ * Congratulates the winner
+*/
+congratulateWinner(Winner) :-
+    playerString(Winner, PString),
+    write('Congratulations, '),
+    write(PString),
+    write('! You won the game!'), skip_line.
+
 playerString(w, 'White').
 playerString(b, 'Black').
