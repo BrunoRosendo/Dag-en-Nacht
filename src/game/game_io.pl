@@ -8,11 +8,11 @@ moveOption(Option, Caption) :-
 
 
 /**
- * printAskPlayer(+Player)
+ * printPlayerTurn(+Player)
  *
  * Displays the player's turn message
 */
-printAskPlayer(Player) :-
+printPlayerTurn(Player) :-
     format('>> Your turn, ~p <<~n~n', [Player]).
 
 /**
@@ -75,7 +75,7 @@ readUntilValidCol(ColumnNumber, Col) :-
  * Asks the user for the type of his move
 */
 askTypeOfMove(Player, Num) :-
-    printAskPlayer(Player),
+    printPlayerTurn(Player),
     moveOption(0, 'Place stone'), nl,
     moveOption(1, 'Shift stone'), nl,
     readUntilBetween(0, 1, Num).
