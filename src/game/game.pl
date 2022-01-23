@@ -22,14 +22,14 @@ gameLoop(GameState, PlayerType, GameType) :-
 
 gameLoop(GameState, PlayerType, GameType) :-
     chooseMove(GameState, PlayerType, Move),
-    move(GameState, Move, NewGameState), !,
+    move(GameState, Move, NewGameState),
     nextPlayer(PlayerType, NewPlayerType, GameType),
     displayGame(NewGameState),
-    gameLoop(NewGameState, NewPlayerType, GameType).
+    gameLoop(NewGameState, NewPlayerType, GameType), !.
 
 gameLoop(GameState, p, GameType) :-
     printInvalidMove,
-    gameLoop(GameState, p, GameType). % Ask for another move
+    gameLoop(GameState, p, GameType), !. % Ask for another move
 
 /**
  * chooseMove(+GameState, +PlayerType, -Move)
@@ -51,12 +51,11 @@ chooseMove(e, (_Board, Player), Moves, Move) :-
     displayBotMove(Move, Player).
 
 chooseMove(h, (Board, Player), Moves, Move) :-
-    setof(Value-Mv, NewState^( member(Mv, Moves), write('move: '), write(Mv), nl,
+    setof(Value-Mv, (NewBoard, Opponent)^( member(Mv, Moves),
         move((Board, Player), Mv, (NewBoard, Opponent)),
         switchColor(Opponent, Player),
-        evaluateBoard((NewBoard, Player), Value) ), [V-Move|_]),
-    displayBotMove(Move, Player),
-    write('chosen: '), write(Move), write(' '), write(V), skip_line.
+        evaluateBoard((NewBoard, Player), Value) ), [_V-Move|_]),
+    displayBotMove(Move, Player).
 
 nextPlayer(p, p, p-p).
 nextPlayer(p, Level, p-Level).
