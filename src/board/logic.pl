@@ -185,4 +185,4 @@ overallValue(PlayerValue, OpponentValue, Value) :-
 
 overallValue(PlayerValue, OpponentValue, Value) :-
     PlayerValue < OpponentValue, % good position, play for yourself
-    Value is PlayerValue + OpponentValue. % It's still better to block opponent if possible
+    Value is 5 + PlayerValue - OpponentValue. % It's still better to block opponent if possible
