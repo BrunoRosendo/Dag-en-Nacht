@@ -35,8 +35,6 @@ On each turn, a player can take one of the following actions:
 
 The winner is the first player to get five of their stones in a row horizontally or vertically, or four stones in row diagonally on white spaces. Stones on black spaces cannot win with a diagonal line.
 
-Optional rules:
-- To mitigate Black's advantage first move advantage, the players may agree to prohibit Black from winning with the easier B-W-B-W-B orthogonal line and force him to win only with the harder W-B-W-B-W orthogonal line
 
 ## Game Logic
 ### Game state internal representation
@@ -46,6 +44,63 @@ The **game state** is composed of the **current state for the board** and the **
 - The **board** is represented by a **list of lists**: each list is a line on the board and each element in the list is a board cell. A **cell** is represented by a compound athom of the **colour** of the cell (**w** if white and **b** if black) and the **state** of the cell (**w** if there is a white piece there, **b** if there is a black piece there or **e** if the cell is empty).
 - The **colour** of the **current player** is an athom which takes the value of **w** if White is playing or **b** is Black is playing.
 
+#### Initial state (15x15)
+
+```
+[[w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e],
+[b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e],
+[w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e],
+[b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e],
+[w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e],
+[b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e],
+[w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e],
+[b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e],
+[w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e],
+[b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e],
+[w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e],
+[b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e],
+[w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e],
+[b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e],
+[w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e]],b
+```
+
+![Initial State](./img/initialState.png)
+
+#### Intermediate state (11x11)
+
+```
+[[w-b,b-w,w-e,b-w,w-e,b-e,w-e,b-e,w-e,b-e,w-e],
+[b-b,w-e,b-b,w-w,b-e,w-e,b-e,w-e,b-e,w-e,b-e],
+[w-w,b-w,w-b,b-e,w-b,b-e,w-e,b-e,w-e,b-e,w-e],
+[b-b,w-b,b-b,w-w,b-e,w-e,b-e,w-e,b-e,w-e,b-e],
+[w-w,b-w,w-w,b-b,w-e,b-e,w-e,b-e,w-e,b-e,w-e],
+[b-b,w-b,b-b,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e],
+[w-b,b-b,w-e,b-w,w-e,b-e,w-e,b-e,w-e,b-e,w-e],
+[b-w,w-e,b-w,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e],
+[w-e,b-w,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e],
+[b-b,w-e,b-b,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e],
+[w-e,b-b,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e]],w
+```
+
+![Intermediate State](./img/intermediateState.png)
+
+#### Final state (11x11)
+
+```
+[[w-e,b-w,w-e,b-e,w-e,b-e,w-e,b-b,w-e,b-e,w-e],
+[b-w,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e],
+[w-w,b-w,w-e,b-e,w-e,b-e,w-b,b-e,w-e,b-e,w-e],
+[b-w,w-e,b-e,w-e,b-b,w-e,b-e,w-e,b-b,w-e,b-b],
+[w-w,b-e,w-e,b-b,w-e,b-e,w-e,b-e,w-e,b-e,w-e],
+[b-w,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e],
+[w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e],
+[b-w,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e],
+[w-e,b-e,w-e,b-e,w-e,b-b,w-e,b-e,w-e,b-e,w-e],
+[b-w,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e],
+[w-e,b-b,w-e,b-e,w-e,b-e,w-e,b-e,w-e,b-e,w-b]],w
+```
+
+![Final State](./img/finalState.png)
 
 ### Game state visualization
 
