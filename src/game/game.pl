@@ -3,7 +3,8 @@
 gameInit(BoardSize, P1-P2) :-
     initialState(BoardSize, GameState),
     displayGame(GameState),
-    gameLoop(GameState, P1, P1-P2).
+    random_select(FirstPlayer, [P1, P2], _Rest),
+    gameLoop(GameState, FirstPlayer, P1-P2).
 
 gameLoop(GameState, PlayerType, GameType) :-
     gameOver(GameState, Winner), !,
