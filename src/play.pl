@@ -12,4 +12,9 @@
 :- consult('menu/menu_io.pl').
 :- consult('menu/menu.pl').
 
+/**
+ * play/0
+ *
+ * Opens the game, in the main menu
+*/
 play :- mainMenu.

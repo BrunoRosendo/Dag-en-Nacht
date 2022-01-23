@@ -171,6 +171,11 @@ evaluateBoard((Board, Player), Value) :-
     overallValue(PlayerValue, OpponentValue, Value),
     write('value: '), write(Value), skip_line.
 
+/**
+ * overallValue(+PlayerValue, +OpponentValue, -Value)
+ *
+ * Calculates a value based on the player and opponent's base values
+*/
 overallValue(0, _, 0). % win
 overallValue(PlayerValue, OpponentValue, Value) :-
     PlayerValue >= OpponentValue, % bad position, block opponent instead

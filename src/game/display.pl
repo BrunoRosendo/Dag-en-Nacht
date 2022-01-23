@@ -1,9 +1,19 @@
+/**
+ * displayGame(+GameState)
+ *
+ * Displays a given game state
+*/
 displayGame((Board, Player)) :-
     boardDimensions(Board, LineNumber, ColumnNumber),
     clear,
     displayColumns(ColumnNumber),
     displayBoard(Board, LineNumber, ColumnNumber).
 
+/**
+ * displayColumns(+N)
+ *
+ * Displays the header for the columns
+*/
 displayColumns(N) :-
     headerBorder(N),
     write('      |'),
@@ -19,12 +29,21 @@ displayColumns(N, Acc) :-
     Acc1 is Acc + 1,
     displayColumns(N, Acc1).
 
+/**
+ * displayBoard(+Board, +Lines, +Cols)
+ *
+ * Displays the main board of the game
+*/
 displayBoard(Board, Lines, Cols) :-
     boardDelimiter(Cols),
     displayLines(Board, Lines, Cols, 1),
     boardDelimiter(Cols), nl.
 
-
+/**
+ * displayLines(+Board, +Lines, +Cols, +Acc)
+ *
+ * Displays the lines of the game board
+*/
 displayLines(Board, Lines, Cols, Lines) :-
     boardLine(Board, Lines, Cols), !.
 
@@ -34,6 +53,11 @@ displayLines(Board, Lines, Cols, Acc) :-
     Acc1 is Acc + 1,
     displayLines(Board, Lines, Cols, Acc1).
 
+/**
+ * boardLine(+Board, +Line, +Cols)
+ *
+ * Displays a line of the game board
+*/
 boardLine(Board, Line, Cols) :-
     format('~t~d~t~3||', [Line]),
     write('  |'),
@@ -49,9 +73,19 @@ boardLine(Board, LineIdx, Cols, Acc) :-
     Acc1 is Acc + 1,
     boardLine(Board, LineIdx, Cols, Acc1).
 
+/**
+ * printCell(+Color, +Symbol)
+ *
+ * Displays a cell of the game board
+*/
 printCell(b, Symbol) :- format('#~p#|', [Symbol]).
 printCell(w, Symbol) :- format(' ~p |', [Symbol]).
 
+/**
+ * boardDelimiter(+Cols)
+ *
+ * Displays a delimiter of the game board
+*/
 boardDelimiter(Cols) :-
     write('---|  |'),
     boardDelimiter(Cols, 1).
@@ -62,7 +96,11 @@ boardDelimiter(Cols, Acc) :-
     Acc1 is Acc + 1,
     boardDelimiter(Cols, Acc1).
 
-
+/**
+ * boardDelimiter(+Cols)
+ *
+ * Displays the border for a header (e.g. columns)
+*/
 headerBorder(N) :-
     write('      |'),
     headerBorder(N, 1).
@@ -81,6 +119,11 @@ cellSymbol(_, b, 'b').
 cellSymbol(w, e, ' ').
 cellSymbol(b, e, '#').
 
+/**
+ * displayBotMove(+Move, +Player)
+ *
+ * Displays information about the bot's move
+*/
 displayBotMove((X, Y), Player) :-
     playerString(Player, PString),
     write(PString),
