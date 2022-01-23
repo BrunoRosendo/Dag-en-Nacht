@@ -7,7 +7,7 @@ gameInit(BoardSize, P1-P2) :-
 
 gameLoop(GameState, PlayerType, GameType) :-
     gameOver(GameState, Winner), !,
-    congratulateWinner(Winner, PlayerType, GameType).
+    congratulateWinner(Winner).
 
 gameLoop(GameState, PlayerType, GameType) :-
     chooseMove(GameState, PlayerType, Move),
@@ -30,14 +30,16 @@ chooseMove(GameState, Level, Move) :-
     validMoves(GameState, Moves),
     chooseMove(Level, GameState, Moves, Move).
 
-chooseMove(e, _GameState, Moves, Move) :-
-    random_select(Move, Moves, _Rest).
+chooseMove(e, (_Board, Player), Moves, Move) :-
+    random_select(Move, Moves, _Rest),
+    displayBotMove(Move, Player).
 
-chooseMove(h, GameState, Moves, Move) :-
-    setof(Value-Mv, NewState^( member(Mv, Moves),
-        move(GameState, Mv, (NewBoard, Opponent)), write('move: '), write(Mv), nl,
+chooseMove(h, (Board, Player), Moves, Move) :-
+    setof(Value-Mv, NewState^( member(Mv, Moves), write('move: '), write(Mv), nl,
+        move((Board, Player), Mv, (NewBoard, Opponent)),
         switchColor(Opponent, Player),
         evaluateBoard((NewBoard, Player), Value) ), [V-Move|_]),
+    displayBotMove(Move, Player),
     write('chosen: '), write(Move), write(' '), write(V), skip_line.
 
 nextPlayer(p, p, p-p).
@@ -56,5 +58,8 @@ chooseTypeOfMove(1, LineNumber, ColumnNumber, (X, Y)-(X1, Y1)) :-
     X1 is X + XOffset,
     Y1 is Y + YOffset.
 
-playerString(w, 'White').
-playerString(b, 'Black').
+congratulateWinner(Winner) :-
+    playerString(Winner, PString),
+    write('Congratulations, '),
+    write(PString),
+    write('! You won the game!'), skip_line.

@@ -11,7 +11,7 @@ displayColumns(N) :-
     headerBorder(N),
     nl.
 
-displayColumns(N, N) :- nl.
+displayColumns(N, N) :- nl, !.
 displayColumns(N, Acc) :-
     Code is Acc + 65,
     char_code(C, Code),
@@ -26,7 +26,7 @@ displayBoard(Board, Lines, Cols) :-
 
 
 displayLines(Board, Lines, Cols, Lines) :-
-    boardLine(Board, Lines, Cols).
+    boardLine(Board, Lines, Cols), !.
 
 displayLines(Board, Lines, Cols, Acc) :-
     boardLine(Board, Acc, Cols),
@@ -41,7 +41,7 @@ boardLine(Board, Line, Cols) :-
     LineIdx is Line - 1,
     boardLine(Board, LineIdx, Cols, 0).
 
-boardLine(Board, LineIdx, Cols, Cols) :- nl.
+boardLine(Board, LineIdx, Cols, Cols) :- nl, !.
 boardLine(Board, LineIdx, Cols, Acc) :-
     getCell(Board, Acc, LineIdx, (Color-Player)),
     cellSymbol(Color, Player, Symbol),
@@ -56,7 +56,7 @@ boardDelimiter(Cols) :-
     write('---|  |'),
     boardDelimiter(Cols, 1).
 
-boardDelimiter(Cols, Cols) :- write('---|'), nl.
+boardDelimiter(Cols, Cols) :- write('---|'), nl, !.
 boardDelimiter(Cols, Acc) :-
     write('---+'),
     Acc1 is Acc + 1,
@@ -67,7 +67,7 @@ headerBorder(N) :-
     write('      |'),
     headerBorder(N, 1).
 
-headerBorder(N, N) :- write('---|'), nl.
+headerBorder(N, N) :- write('---|'), nl, !.
 headerBorder(N, Acc) :-
     write('---+'),
     Acc1 is Acc + 1,
@@ -80,3 +80,22 @@ cellSymbol(_, w, 'w').
 cellSymbol(_, b, 'b').
 cellSymbol(w, e, ' ').
 cellSymbol(b, e, '#').
+
+displayBotMove((X, Y), Player) :-
+    playerString(Player, PString),
+    write(PString),
+    write(' chose to place a stone in the cell '),
+    Col is X + 65, put_code(Col),
+    write('-'), Row is Y + 1, write(Row),
+    skip_line, !.
+
+displayBotMove((X, Y)-(X1, Y1), Player) :-
+    playerString(Player, PString),
+    write(PString),
+    write(' chose to shift a stone from the cell '),
+    Col is X + 65, put_code(Col),
+    write('-'), Row is Y + 1, write(Row),
+    write(' to '),
+    Col1 is X1 + 65, put_code(Col1),
+    write('-'), Row1 is Y1 + 1, write(Row1),
+    skip_line, !.

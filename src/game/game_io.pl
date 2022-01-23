@@ -66,3 +66,5 @@ printInvalidMove :-
     nl, write('Invalid move.'), nl,
     write('Remember the rules and please try again'), nl, nl.
 
+playerString(w, 'White').
+playerString(b, 'Black').
