@@ -76,14 +76,17 @@ getWinCondition(Player, NumPieces, WinCondition, Acc) :-
 /**
  * gameOver(+GameState, -Winner)
  */
-gameOver((Board,Player), Player) :-
+gameOver((Board,_), Player) :-
+    validPlayer(Player),
     transpose(Board, Cols),
     checkWin(Cols, Player, 5). % Columns
 
-gameOver((Board,Player), Player) :-
+gameOver((Board,_), Player) :-
+    validPlayer(Player),
     checkWin(Board, Player, 5).  % Rows
 
-gameOver((Board,Player), Player) :-
+gameOver((Board,_), Player) :-
+    validPlayer(Player),
     whiteDiagonals(Board, WhiteDiags),
     checkWin(WhiteDiags, Player, 4). % White Diagonals
 
@@ -168,8 +171,7 @@ evaluateBoard((Board, Player), Value) :-
     append(OppLinearList, OppDiagList, OpponentList),
     min_member(OpponentValue, OpponentList),
 
-    overallValue(PlayerValue, OpponentValue, Value),
-    write('value: '), write(Value), skip_line.
+    overallValue(PlayerValue, OpponentValue, Value).
 
 /**
  * overallValue(+PlayerValue, +OpponentValue, -Value)

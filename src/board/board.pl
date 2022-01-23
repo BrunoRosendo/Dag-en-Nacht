@@ -177,3 +177,6 @@ lowerAndLeftCoords(ColumnNumber, RowNumber, Coords) :-
     bagof((X, UpperY), betweenAndEven(2, UpperX, X), LowerRow), 
     bagof((0, Y), betweenAndEven(0, UpperY, Y), LeftColumn),
     append(LowerRow, LeftColumn, Coords).
+
+validPlayer(w).
+validPlayer(b).
